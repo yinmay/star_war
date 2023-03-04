@@ -31,7 +31,7 @@ const Spaceship: React.FC = () => {
     });
   }, []);
   const handleClick = (id: string) => {
-    navigate(`/pilot/${id}`, { state: { id } });
+    navigate(`/${location.state.id}/${id}`, { state: { id } });
   };
   return (
     <div>

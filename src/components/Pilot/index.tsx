@@ -17,7 +17,6 @@ const Pilot: React.FC = () => {
     hair_color: "",
     height: "",
   });
-  let navigate = useNavigate();
 
   useEffect(() => {
     request({

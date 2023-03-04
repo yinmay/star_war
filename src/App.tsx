@@ -6,24 +6,33 @@ import {
   Route,
   Link,
   useParams,
-  useLocation,
+  NavLink,
 } from "react-router-dom";
-import { Breadcrumb } from "antd";
-
+// import { Breadcrumb } from "antd";
+// import useBreadcrumbs from "use-react-router-breadcrumbs";
+import Breadcrumbs from "./components/Breadcrumbs";
 import Pilot from "./components/Pilot";
 import Spaceships from "./components/Spaceships";
 import Spaceship from "./components/Spaceship";
 
 function App() {
-  // const location = useLocation();
   let params = useParams();
+  // const breadcrumbs = useBreadcrumbs();
 
   console.log(params);
   return (
     <div className="App">
       <Router>
+        {/* {breadcrumbs.map(({ breadcrumb, match }, index) => (
+        <>
+          <NavLink key={match.pathname} to={match.pathname}>
+            {breadcrumb}
+          </NavLink>
+          {index !== breadcrumbs.length - 1 && "/"}
+        </>
+      ))} */}
         <div>
-          <Breadcrumb>
+          {/* <Breadcrumb>
             <Breadcrumb.Item>
               <Link to="/">Spaceships</Link>
             </Breadcrumb.Item>
@@ -33,11 +42,11 @@ function App() {
             <Breadcrumb.Item>
               <Link to="/pilot/:pilotId">Pilot</Link>
             </Breadcrumb.Item>
-          </Breadcrumb>
-
+          </Breadcrumb> */}
+          <Breadcrumbs />
           <Routes>
-            <Route path="/pilot/:pilotId" element={<Pilot />}></Route>
-            <Route path="/spaceship/:id" element={<Spaceship />}></Route>
+            <Route path="/:id/:pilotId" element={<Pilot />}></Route>
+            <Route path="/:id" element={<Spaceship />}></Route>
             <Route path="/" element={<Spaceships />}></Route>
           </Routes>
         </div>
