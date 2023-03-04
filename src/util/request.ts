@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const client = axios.create({
   baseURL: "https://swapi.dev/api/",
@@ -7,13 +7,17 @@ const client = axios.create({
 /**
  * Request Wrapper with default success/error actions
  */
-const request = function (options) {
-  const onSuccess = function (response) {
+const request = function (options: AxiosRequestConfig<any>) {
+  const onSuccess = function (response: { data: any }) {
     console.debug("Request Successful!", response);
     return response.data;
   };
 
-  const onError = function (error) {
+  const onError = function (error: {
+    config: any;
+    response: { status: any; data: any; headers: any };
+    message: any;
+  }) {
     console.error("Request Failed:", error.config);
 
     if (error.response) {

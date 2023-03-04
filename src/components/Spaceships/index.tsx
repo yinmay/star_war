@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Card, Space, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
-
-interface Spaceship {
+import request from "../../util/request";
+import { getIdFromUrl } from "../../util/getId";
+export interface ISpaceship {
   name: string;
   model: string;
   manufacturer: string;
@@ -14,20 +14,16 @@ interface Spaceship {
 const { Meta } = Card;
 
 const Spaceships: React.FC = () => {
-  const [spaceships, setSpaceships] = useState<Spaceship[]>([]);
+  const [spaceships, setSpaceships] = useState<ISpaceship[]>([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("https://swapi.dev/api/starships")
-      .then((response) => {
-        console.log(response.data.results);
-        setSpaceships(response.data.results);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
+    request({
+      method: "get",
+      url: "/starships",
+    }).then((resp: { results: React.SetStateAction<ISpaceship[]> }) => {
+      setSpaceships(resp.results);
+    });
   }, []);
   const handleClick = (id: string) => {
     navigate(`/spaceship/${id}`, { state: { id } });
@@ -35,16 +31,8 @@ const Spaceships: React.FC = () => {
   return (
     <div>
       <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-        {spaceships.map((ship: Spaceship) => {
-          const spaceshipUrl = ship.url;
-          let index = spaceshipUrl
-            .substr(0, spaceshipUrl.length - 1)
-            .lastIndexOf("/");
-          let spaceShipId = spaceshipUrl.substring(
-            index + 1,
-            spaceshipUrl.length - 1
-          );
-
+        {spaceships?.map((ship: ISpaceship) => {
+          const id = getIdFromUrl(ship.url);
           return (
             <Row gutter={16}>
               <Col span={6}>
@@ -57,7 +45,7 @@ const Spaceships: React.FC = () => {
                       src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
                     />
                   }
-                  onClick={() => handleClick(spaceShipId)}
+                  onClick={() => handleClick(id)}
                 >
                   <Meta title={ship.name} description={ship.model} />
                 </Card>
