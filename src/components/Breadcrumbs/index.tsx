@@ -5,24 +5,24 @@ import { Breadcrumb } from "antd";
 const Breadcrumbs = () => {
   const { pathname } = useLocation();
   const pathnames = pathname.split("/").filter(Boolean);
-  console.log(pathnames);
   return (
-    <div>
-      <Breadcrumb>
+    <Breadcrumb>
+      <Breadcrumb.Item>
         <Link to="/">Spaceships</Link>
-      </Breadcrumb>
+      </Breadcrumb.Item>
       {pathnames.map((path, index) => {
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLast = index === pathnames.length - 1;
+        console.log(pathnames, routeTo);
         return isLast ? (
-          <Breadcrumb>{path}</Breadcrumb>
+          <Breadcrumb.Item>{path}</Breadcrumb.Item>
         ) : (
-          <Breadcrumb>
+          <Breadcrumb.Item>
             <Link to={routeTo}>{path}</Link>
-          </Breadcrumb>
+          </Breadcrumb.Item>
         );
       })}
-    </div>
+    </Breadcrumb>
   );
 };
 

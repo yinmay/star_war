@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Card } from "antd";
 import { getIdFromUrl } from "../../util/getId";
 import request from "../../util/request";
@@ -12,7 +12,8 @@ const gridStyle: React.CSSProperties = {
 
 const Spaceship: React.FC = () => {
   const location = useLocation();
-
+  const params = useParams();
+  console.log(location.state, params);
   const [spaceship, setSpaceship] = useState<ISpaceship>({
     name: "",
     model: "",
@@ -25,13 +26,13 @@ const Spaceship: React.FC = () => {
   useEffect(() => {
     request({
       method: "get",
-      url: `/starships/${location.state.id}`,
+      url: `/starships/${params.id || location.state.id}`,
     }).then((resp: React.SetStateAction<ISpaceship>) => {
       setSpaceship(resp);
     });
   }, []);
-  const handleClick = (id: string) => {
-    navigate(`/${location.state.id}/${id}`, { state: { id } });
+  const handleClick = (pilotId: string) => {
+    navigate(`/${location.state.id}/${pilotId}`, { state: { pilotId } });
   };
   return (
     <div>

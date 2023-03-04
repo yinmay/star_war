@@ -21,7 +21,7 @@ const Pilot: React.FC = () => {
   useEffect(() => {
     request({
       method: "get",
-      url: `/people/${location.state.id}`,
+      url: `/people/${location.state.pilotId}`,
     }).then((resp: React.SetStateAction<IPilot>) => {
       console.log(resp);
       setPilot(resp);
