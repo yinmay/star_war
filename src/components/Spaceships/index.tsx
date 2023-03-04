@@ -44,7 +44,7 @@ const Spaceships: React.FC = () => {
         {spaceships?.map((ship: ISpaceship) => {
           const id = getIdFromUrl(ship.url);
           return (
-            <Row gutter={16}>
+            <Row gutter={16} key={id}>
               <Col span={6}>
                 <Card
                   hoverable

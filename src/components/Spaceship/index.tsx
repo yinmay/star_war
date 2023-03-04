@@ -31,7 +31,6 @@ const Spaceship: React.FC = () => {
     starship_class: "",
   });
   let navigate = useNavigate();
-  console.log(spaceship);
   useEffect(() => {
     request({
       method: "get",
@@ -70,11 +69,10 @@ const Spaceship: React.FC = () => {
           </Descriptions.Item>
         </Descriptions>
 
-        {spaceship.pilots.map((pilot) => {
+        {spaceship.pilots.map((pilot: string) => {
           const id = getIdFromUrl(pilot);
-          console.log(pilot);
           return (
-            <Card onClick={() => handleClick(id)} style={gridStyle}>
+            <Card key={id} onClick={() => handleClick(id)} style={gridStyle}>
               {pilot}
             </Card>
           );
