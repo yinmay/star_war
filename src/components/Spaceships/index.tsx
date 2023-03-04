@@ -61,8 +61,8 @@ const Spaceships: React.FC = () => {
         direction="column"
         columnsCountBreakPoints={{
           1400: 4,
-          1000: 3,
-          700: 2,
+          1100: 3,
+          800: 2,
           500: 1,
         }}
       >
