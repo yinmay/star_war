@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Pilots from "./components/Pilots";
+import Spaceships from "./components/Spaceships";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Spaceships</Link>
+              </li>
+              <li>
+                <Link to="/pilot/:id">Pilots</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Routes>
+            <Route path="/pilot/:id" element={<Pilots />}></Route>{" "}
+            <Route path="/" element={<Spaceships />}></Route>{" "}
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
