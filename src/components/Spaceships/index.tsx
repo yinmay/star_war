@@ -8,6 +8,16 @@ export interface ISpaceship {
   model: string;
   manufacturer: string;
   url: string;
+  MGLT: string;
+  cargo_capacity: string;
+  consumables: string;
+  cost_in_credits: string;
+  crew: string;
+  hyperdrive_rating: string;
+  length: string;
+  passengers: string;
+  max_atmosphering_speed: string;
+  starship_class: string;
   pilots: string[];
 }
 
